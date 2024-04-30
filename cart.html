@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Cart</h1>
+    <ul class="cart-items">
+        <!-- Loop through cart items -->
+        <!-- Example: -->
+        <!-- <li>Item Name - Quantity - Price - Total</li> -->
+    </ul>
+    <a href="{% url 'checkout' %}" class="checkout-btn">Proceed to Checkout</a>
+</body>
+</html>
