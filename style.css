@@ -2,76 +2,64 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-    margin: 0;
-    padding: 0;
+    background-color: #f2f2f2;
+    padding: 20px;
 }
 
 h1 {
-    text-align: center;
     color: #333;
 }
 
-.inventory-list {
-    list-style-type: none;
-    padding: 0;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
-.inventory-item {
-    background-color: #fff;
+table, th, td {
     border: 1px solid #ddd;
-    margin-bottom: 10px;
+}
+
+th, td {
     padding: 10px;
+    text-align: left;
 }
 
-.item-name {
-    font-weight: bold;
+th {
+    background-color: #f2f2f2;
 }
 
-.item-price {
-    margin-left: 20px;
-}
-
-form {
-    display: inline-block;
-}
-
-.cart-items {
-    list-style-type: none;
-    padding: 0;
-}
-
-.checkout-btn {
-    display: block;
-    width: 150px;
-    margin: 20px auto;
-    padding: 10px;
-    text-align: center;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-}
-
-.checkout-btn:hover {
-    background-color: #0056b3;
-}
-
-.checkout-form {
-    width: 300px;
-    margin: 0 auto;
-}
-
-.submit-btn {
+button {
+    background-color: #4CAF50;
+    color: white;
     padding: 10px 20px;
-    background-color: #28a745;
-    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.submit-btn:hover {
-    background-color: #218838;
+button:hover {
+    background-color: #45a049;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+textarea:focus,
+select:focus {
+    border: 1px solid #4CAF50;
 }
