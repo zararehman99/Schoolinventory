@@ -35,3 +35,43 @@ h1 {
 form {
     display: inline-block;
 }
+
+.cart-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+.checkout-btn {
+    display: block;
+    width: 150px;
+    margin: 20px auto;
+    padding: 10px;
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+}
+
+.checkout-btn:hover {
+    background-color: #0056b3;
+}
+
+.checkout-form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
