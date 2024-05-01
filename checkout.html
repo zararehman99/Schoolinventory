@@ -4,25 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
 </head>
 <body>
     <h1>Checkout</h1>
-    <form method="POST" class="checkout-form">
-        {% csrf_token %}
-        <!-- Shipping Information -->
-        <label for="shipping_address">Shipping Address:</label><br>
-        <input type="text" id="shipping_address" name="shipping_address" required><br><br>
-        <!-- Other fields for shipping information -->
-        
-        <!-- Payment Information (if integrating payment gateway) -->
-        <!-- Example: -->
-        <!-- <label for="card_number">Card Number:</label><br>
-        <input type="text" id="card_number" name="card_number" required><br><br> -->
-        
-        <button type="submit" class="submit-btn">Place Order</button>
+    <form action="/submit_reservation" method="POST">
+        <!-- Equipment selection -->
+        <label for="equipment">Select Equipment:</label><br>
+        <select id="equipment" name="equipment" required>
+            {% for equipment in available_equipment %}
+                <option value="{{ equipment.id }}">{{ equipment.name }}</option>
+            {% endfor %}
+        </select><br>
+
+        <!-- Equipment pickup and return information fields -->
+        <label for="borrow_date">Borrow Date:</label>
+        <input type="date" id="borrow_date" name="borrow_date" required><br>
+
+        <label for="return_date">Return Date:</label>
+        <input type="date" id="return_date" name="return_date" required><br>
+
+       
+        <label for="purpose">Purpose:</label><br>
+        <textarea id="purpose" name="purpose" rows="4" cols="50"></textarea><br>
+
+        <button type="submit">Submit Reservation</button>
     </form>
 </body>
 </html>
 
-```

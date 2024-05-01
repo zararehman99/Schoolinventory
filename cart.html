@@ -3,17 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Equipment Cart</title>
+
 </head>
 <body>
-    <h1>Cart</h1>
-    <ul class="cart-items">
-        <!-- Loop through cart items -->
-        <!-- Example: -->
-        <!-- <li>Item Name - Quantity - Price - Total</li> -->
-    </ul>
-    <a href="{% url 'checkout' %}" class="checkout-btn">Proceed to Checkout</a>
+    <h1>Equipment Cart</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Equipment</th>
+                <th>Description</th>
+                <th>Borrow Date</th>
+                <th>Return Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Fetch equipment reservations for the current user from EquipmentReservations table -->
+            {% for reservation in user_reservations %}
+            <tr>
+                <td>{{ reservation.equipment.name }}</td>
+                <td>{{ reservation.equipment.description }}</td>
+                <td>{{ reservation.borrow_date }}</td>
+                <td>{{ reservation.return_date }}</td>
+                <td>{{ reservation.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="checkout.html"><button>Proceed to Checkout</button></a>
 </body>
 </html>
 
+
+   
