@@ -1,37 +1,97 @@
 <!-- checkout.html -->
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'checkout.css' %}">
     <title>Checkout</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.remove-item').click(function() {
+                var reservationId = $(this).data('reservation-id');
+                $(this).closest('tr').remove();
+                // Perform AJAX request to remove item with reservationId
+                $.ajax({
+                url: '/remove_reservation/' + reservationId + '/',
+                type: 'POST',
+                data:{'csrfmiddlewaretoken':"{{ csrf_token }}"},
+                success: function(data) {
+                    // Update the table accordingly
+                    if (data.success) {
+                        // $(this).closest('tr').remove();
+                        console.log("Removed")
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    alert('Error: ' + errorThrown);
+                }
+            });
+        
+            });
+
+            $('#confirm-btn').click(function() {
+                $.ajax({
+                    url: '/confirm_checkout/',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token in the request headers
+                    },
+                    success: function(data) {
+                        // Handle success response
+                        console.log('Checkout confirmed');
+                        $('.checkout-table tbody').empty();
+                        if (confirm('Reservation Successful. Do you want to go back to the inventory view page?')) {
+                            window.location.href = '/inventoryview/';
+                        }
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        // Handle error response
+                        console.error('Error confirming checkout:', errorThrown);
+                    }
+            });
+        });
+        });
+    </script>
 </head>
 <body>
     <h1>Checkout</h1>
-    <form action="/submit_reservation" method="POST">
-        <!-- Equipment selection -->
-        <label for="equipment">Select Equipment:</label><br>
-        <select id="equipment" name="equipment" required>
-            {% for equipment in available_equipment %}
-                <option value="{{ equipment.id }}">{{ equipment.name }}</option>
-            {% endfor %}
-        </select><br>
 
-        <!-- Equipment pickup and return information fields -->
-        <label for="borrow_date">Borrow Date:</label>
-        <input type="date" id="borrow_date" name="borrow_date" required><br>
+    <table class="checkout-table">
+        <thead>
+            <tr>
+                <th>Equipment</th>
+                <th>Borrow Date</th>
+                <th>Return Date</th>
+                <th>Purpose</th>
+                <th>Reservation Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if reservations %}
+                {% for reservation in reservations %}
+                <tr>
+                    <td>{{ reservation.EQUIPMENT_ID.NAME }}</td>
+                    <td>{{ reservation.BORROW_DATE }}</td>
+                    <td>{{ reservation.RETURN_DATE }}</td>
+                    <td>{{ reservation.PURPOSE }}</td>
+                    <td>{{ reservation.RESERVATION_TYPE }}</td>
+                    <td><button class="remove-item" data-reservation-id="{{ reservation.ID }}">Remove</button></td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6">No reservations found.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
 
-        <label for="return_date">Return Date:</label>
-        <input type="date" id="return_date" name="return_date" required><br>
-
-        <label for="purpose">Purpose:</label><br>
-        <textarea id="purpose" name="purpose" rows="4" cols="50"></textarea><br>
-
-        <button type="submit">Submit Reservation</button>
-    </form>
+    <button id="confirm-btn">Confirm</button>
 </body>
 </html>
-
-
